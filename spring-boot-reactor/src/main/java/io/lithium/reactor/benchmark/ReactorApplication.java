@@ -2,10 +2,8 @@ package io.lithium.reactor.benchmark;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
-import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -33,7 +31,7 @@ public class ReactorApplication {
 
     public RouterFunction<?> routingFunction() {
         return route(
-                GET("/hello"), (req) ->{
+                GET("/"), (req) ->{
 //                    _logger.debug(Thread.currentThread().getName());
                     return ServerResponse.ok().body(Mono.just("Hello, World!"), String.class);
                 });
