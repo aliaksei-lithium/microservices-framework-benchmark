@@ -10,3 +10,5 @@
 `wrk -t4 -c128 -d2s http://localhost:8080`
 
 * Server will fail with java.lang.IndexOutOfBoundsException
+
+Issue: https://jira.spring.io/browse/SPR-15246
