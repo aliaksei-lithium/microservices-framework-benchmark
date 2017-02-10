@@ -1,9 +1,11 @@
 package io.lithium.reactor.benchmark;
 
+import io.undertow.Undertow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
+import org.springframework.http.server.reactive.UndertowHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -23,10 +25,11 @@ public class ReactorApplication {
 
     public static void main(String[] args) throws Exception {
         ReactorApplication server = new ReactorApplication();
-        server.startReactorServer();
+//        server.startReactorServer();
+        server.startUndertow();
 
         _logger.info("Server started...");
-        System.in.read();
+        Thread.currentThread().join();
     }
 
     public RouterFunction<?> routingFunction() {
@@ -45,5 +48,14 @@ public class ReactorApplication {
         ReactorHttpHandlerAdapter adapter = new ReactorHttpHandlerAdapter(httpHandler);
         HttpServer server = HttpServer.create(HOST, PORT);
         server.newHandler(adapter).block();
+    }
+
+    private void startUndertow() {
+        RouterFunction<?> route = routingFunction();
+        HttpHandler httpHandler = toHttpHandler(route);
+
+        UndertowHttpHandlerAdapter adapter = new UndertowHttpHandlerAdapter(httpHandler);
+        Undertow server = Undertow.builder().addHttpListener(PORT, HOST).setHandler(adapter).build();
+        server.start();
     }
 }

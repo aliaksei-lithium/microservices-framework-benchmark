@@ -45,6 +45,9 @@ dependencies {
     // Reactor Netty
     compile "io.projectreactor.addons:reactor-test"
     compile "io.projectreactor.ipc:reactor-netty"
+
+    // Undertow
+    compile "io.undertow:undertow-core"
 }
 
 dependencyManagement {
@@ -52,6 +55,9 @@ dependencyManagement {
         mavenBom "org.springframework.boot.experimental:spring-boot-dependencies-web-reactive:0.1.0.BUILD-SNAPSHOT"
     }
 }
+
+apply plugin: 'application'
+mainClassName = "io.lithium.reactor.benchmark.ReactorApplication"
 
 task wrapper(type: Wrapper) {
     gradleVersion = "3.3"
