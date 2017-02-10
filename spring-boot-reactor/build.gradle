@@ -56,8 +56,11 @@ dependencyManagement {
     }
 }
 
-apply plugin: 'application'
-mainClassName = "io.lithium.reactor.benchmark.ReactorApplication"
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.lithium.reactor.benchmark.ReactorApplication'
+    }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = "3.3"
