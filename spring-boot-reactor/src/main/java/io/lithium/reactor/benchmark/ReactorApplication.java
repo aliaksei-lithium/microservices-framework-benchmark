@@ -1,6 +1,8 @@
 package io.lithium.reactor.benchmark;
 
+import io.undertow.Handlers;
 import io.undertow.Undertow;
+import io.undertow.UndertowOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -8,6 +10,7 @@ import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
 import org.springframework.http.server.reactive.UndertowHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.xnio.Options;
 import reactor.core.publisher.Mono;
 import reactor.ipc.netty.http.server.HttpServer;
 
@@ -55,7 +58,8 @@ public class ReactorApplication {
         HttpHandler httpHandler = toHttpHandler(route);
 
         UndertowHttpHandlerAdapter adapter = new UndertowHttpHandlerAdapter(httpHandler);
-        Undertow server = Undertow.builder().addHttpListener(PORT, HOST).setHandler(adapter).build();
+        // From Light-Java
+        Undertow server = Undertow.builder().addHttpListener(PORT, HOST).setBufferSize(16384).setIoThreads(Runtime.getRuntime().availableProcessors() * 2).setSocketOption(Options.BACKLOG, Integer.valueOf(10000)).setServerOption(UndertowOptions.ALWAYS_SET_KEEP_ALIVE, Boolean.valueOf(false)).setServerOption(UndertowOptions.ALWAYS_SET_DATE, Boolean.valueOf(true)).setServerOption(UndertowOptions.RECORD_REQUEST_START_TIME, Boolean.valueOf(false)).setHandler(adapter).setWorkerThreads(200).build();
         server.start();
     }
 }
