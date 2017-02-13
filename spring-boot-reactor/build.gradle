@@ -58,7 +58,7 @@ dependencyManagement {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'io.lithium.reactor.benchmark.ReactorApplication'
+        attributes 'Main-Class': 'io.lithium.reactor.benchmark.ReactorCleanApplication'
     }
 }
 

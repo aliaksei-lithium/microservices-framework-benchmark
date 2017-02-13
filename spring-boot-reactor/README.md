@@ -56,6 +56,24 @@ Transfer/sec:      9.25MB
 
 ```
 
+Clean Reactor App (w/o Spring)
+```bash
+wrk -t4 -c128 -d30s http://localhost:8080 -s pipeline.lua --latency                                                                                                   [±feature/reactor-improve ●●●]
+Running 30s test @ http://localhost:8080
+  4 threads and 128 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.23ms    8.42ms 189.84ms   99.28%
+    Req/Sec    12.15k     1.03k   14.16k    87.29%
+  Latency Distribution
+     50%    2.49ms
+     75%    2.60ms
+     90%    3.26ms
+     99%    4.56ms
+  1447286 requests in 30.01s, 96.62MB read
+Requests/sec:  48227.06
+Transfer/sec:      3.22MB
+```
+
 And compare with [Light Java](https://github.com/aliaksei-lithium/microservices-framework-benchmark/tree/master/light-java) with Undertow  
 
 ```bash

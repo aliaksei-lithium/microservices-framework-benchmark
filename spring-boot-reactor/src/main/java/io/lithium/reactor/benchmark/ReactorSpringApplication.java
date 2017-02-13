@@ -1,6 +1,5 @@
 package io.lithium.reactor.benchmark;
 
-import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.UndertowOptions;
 import org.slf4j.Logger;
@@ -18,22 +17,22 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.RouterFunctions.toHttpHandler;
 
-public class ReactorApplication {
+public class ReactorSpringApplication {
 
-    private static final Logger _logger = LoggerFactory.getLogger(ReactorApplication.class);
+    private static final Logger _logger = LoggerFactory.getLogger(ReactorSpringApplication.class);
 
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
 
 
-    public static void main(String[] args) throws Exception {
-        ReactorApplication server = new ReactorApplication();
-//        server.startReactorServer();
-        server.startUndertow();
+    /*public static void main(String[] args) throws Exception {
+        ReactorSpringApplication server = new ReactorSpringApplication();
+        server.startReactorServer();
+//        server.startUndertow();
 
         _logger.info("Server started...");
         Thread.currentThread().join();
-    }
+    }*/
 
     public RouterFunction<?> routingFunction() {
         return route(
